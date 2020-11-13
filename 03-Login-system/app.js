@@ -10,9 +10,12 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const flash = require('connect-flash')
 const session = require('express-session')
+const dotenv = require('dotenv')
 
 //connect to db
 connectDB()
+
+dotenv.config({path: './config/config.env'})
 
 
 var indexRouter = require('./routes/index');
@@ -32,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Handle express sessions
 app.use(session({
-	secret: 'secret',
+	secret: process.env.SESSION_SECRET,
 	saveUninitialized: true,
 	resave: true
 }))
