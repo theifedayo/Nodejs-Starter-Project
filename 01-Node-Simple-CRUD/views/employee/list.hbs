@@ -1,0 +1,13 @@
+<div class="container">
+	<h3><a href="/">Create New</a></h3>
+	{{#each list }}
+		<div class="container">
+			<h4><a href="/{{this._id}}">Edit</a>  <a href="/delete/{{this._id}}">  Delete</a></h4>
+		</div>
+		<p>Name : {{ this.fullName }}</p>
+		<p>Email : {{ this.email }}</p>
+		<p>Mobile : {{ this.mobile }}</p>
+		<p>City : {{ this.city }}</p>
+		<hr>
+	{{/each}}
+</div>

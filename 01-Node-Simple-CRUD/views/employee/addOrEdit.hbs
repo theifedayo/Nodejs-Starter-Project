@@ -1,0 +1,12 @@
+<div class="container">
+	<h3><a href="/list">View All</a></h3>
+	<form action="/" method="POST" autocomplete="off">
+		<input type="hidden" name="_id" value="{{employee._id}}">
+		<input type='text' name='fullName' placeholder='Name' value="{{employee.fullName}}"/><br>
+		<p>{{ employee.fullNameError}}</p>
+		<input type='text' name='email' placeholder='Email' value="{{employee.email}}"/><br>
+		<input type='text' name='mobile' placeholder='Mobile' /value="{{employee.mobile}}"><br>
+		<input type='text' name='city' placeholder='City' value="{{employee.city}}"/><br>
+		<button type='submit'>Submit</button>
+	</form>
+</div>
