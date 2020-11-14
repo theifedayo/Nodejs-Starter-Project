@@ -1,41 +1,31 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path')
+const express = require('express')
+const cors = require('cors')
+const dotenv = require('dotenv')
+const connectDB = require('./models/db')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
-var app = express();
+dotenv.config({path: './config/config.env'})
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+connectDB()
+const app = express()
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//body parser
+app.use(express.json())
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+//enable cors
+app.use(cors())
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+//set static folder
+app.use(express.static(path.join(__dirname, 'public')))
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+//Routes
+app.use('/api/v1', require('./routes/users'))
 
-module.exports = app;
+
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, ()=>{
+	console.log(`Server running in ${process.env.NODE_ENV} on port ${process.env.PORT}`)
+})
