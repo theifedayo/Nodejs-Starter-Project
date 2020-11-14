@@ -34,31 +34,37 @@ exports.postStory = async (req, res)=>{
 
 exports.storyDetails = async (req, res)=>{
 	try{
-		const storyDeets = await Stories.findById(req.params.id, (err, docs)=>{
-			if(err){
-				console.log(err)
-			}
-			res.status(200).json({
-				success: true,
-				data: docs
-			})
+		const storyDeets = await Stories.findById(req.params.id)
+		return res.status(200).json({
+			success: true,
+			data: storyDeets
 		})
-		
 	}catch(error){
-		console.log(error)
+		res.status(404).json({
+			sucess: false,
+			message: 'Story not found'
+		})
 	}
+
 }
 
 exports.updateStory = async (req, res)=>{
 	try{
-		if(!req.body._id){
-			return res.status(404).json({
-				success: false,
-				message: 'Story not found'
+		const storyDeets = await Stories.findById(req.params.id)
+		storyDeets.story = req.body.story
+		storyDeets.save((err, result)=>{
+			if(err){
+				res.status(404).json(err)
+			}
+			res.status(200).json({
+				sucess: true,
+				data: storyDeets
 			})
-		}
-		const storyFind = Story.findById()
+		})
 	}catch(error){
-
+		res.status(404).json({
+			sucess: false,
+			message: 'Story not found'
+		})
 	}
 }
