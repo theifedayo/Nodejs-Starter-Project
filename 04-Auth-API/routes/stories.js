@@ -5,6 +5,7 @@ var router = express.Router();
 
 router.post('/', stories.postStory);
 router.get('/', stories.getStory);
+router.get('/:id', stories.storyDetails);
 
 
 
