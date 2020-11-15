@@ -44,24 +44,6 @@ exports.check = (req, res, next)=>{
 	}
 }
 
-// exports.login = (req, res)=>{
-// 	if(!req.body.username ||  !req.body.password){
-// 		return res.status(400).json({
-// 			success: false,
-// 			message: "All fields are required"
-// 		})
-// 	}
-
-// 	passport.authenticate('local', { failureRedirect: '/users/login' }), function(req, res, err){
-// 		if(err){
-// 			return res.send('error on the mountain')
-// 		}
-// 		console.log('success')
-// 	}
-
-
-
-// }
 
 
 exports.getLogout = (req, res)=>{

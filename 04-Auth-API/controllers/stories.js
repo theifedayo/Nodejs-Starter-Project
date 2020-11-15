@@ -1,6 +1,7 @@
 const Stories = require('../models/stories')
 const express = require('express')
-const users = require('../models/users')
+const User = require('../models/users')
+const jwt = require('express-jwt')
 
 
 
@@ -18,20 +19,16 @@ exports.getStory = async (req, res)=>{
 	}
 }
 
-exports.postStory = async (req, res)=>{
+exports.postStory = async (req, res, user)=>{
 	try{
-		// const newStory = await Stories.create(
-		// 	story= req.body.story,
-		// 	user=req.user
-		// )
+		const loginUser = res.locals.user.username
+		console.log(loginUser,'xxxxxxxxxxxxxxxxxx')
 	
 		const newStory = await new Stories()
 
 		newStory.story= req.body.story
-		newStory.user = req.body.user
+		newStory.user = loginUser
 
-		const loginUser = res.locals.user
-		console.log(loginUser,'xxxxxxxxxxxxxxxxxx')
 
 		newStory.save((err, result)=>{
 			if (err){
