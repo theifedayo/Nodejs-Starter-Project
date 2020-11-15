@@ -34,7 +34,15 @@ exports.register = (req, res)=>{
 	})
 }
 
-
+exports.check = (req, res, next)=>{
+	if(!req.body.username ||  !req.body.password){
+		return res.status(400).json({
+			success: false,
+			message: "All fields are required"
+		})
+	next()
+	}
+}
 
 // exports.login = (req, res)=>{
 // 	if(!req.body.username ||  !req.body.password){
