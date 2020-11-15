@@ -64,7 +64,6 @@ exports.check = (req, res, next)=>{
 // }
 
 
-
 exports.getLogout = (req, res)=>{
 	req.logout()
 	res.status(200).json({

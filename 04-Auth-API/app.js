@@ -32,9 +32,31 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
+
 //Routes
 app.use('/api/v1/stories', require('./routes/stories'))
 app.use('/api/v1', require('./routes/users'))
+
+app.post('*', (req, res, next)=>{
+  res.locals.user = req.user || null
+  console.log(res.locals.user,'----------------')
+  next()
+})
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(unauthorizedError(401));
+});
+
+//Handle unauthorized error
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({
+    	"success": false,
+    	"message" : err.name + ": " + err.message});
+  }
+});
 
 
 const PORT = process.env.PORT || 5000

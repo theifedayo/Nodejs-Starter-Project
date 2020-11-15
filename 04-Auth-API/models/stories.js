@@ -7,7 +7,8 @@ const storySchema = new mongoose.Schema({
 		index: true
 	},
 	user: {
-		type: String
+		type: String,
+		required : true
 	},
 	createdAt:{
 		type: Date,
