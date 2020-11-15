@@ -40,7 +40,7 @@ exports.check = (req, res, next)=>{
 			success: false,
 			message: "All fields are required"
 		})
-	next()
+	return next()
 	}
 }
 

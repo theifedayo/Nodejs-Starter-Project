@@ -31,8 +31,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-//set static folder
-app.use(express.static(path.join(__dirname, 'public')))
 
 //Routes
 app.use('/api/v1/stories', require('./routes/stories'))
