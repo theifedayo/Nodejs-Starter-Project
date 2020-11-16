@@ -2,7 +2,7 @@
 # Auth API
 
 ### Desc
-
+This is an API for making stories. Users have to be authenticated before accessing some routes and tokens are used to pass data around.
 
 ### Install
 To install packages in package.json file, run

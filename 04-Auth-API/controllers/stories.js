@@ -70,7 +70,7 @@ exports.updateStory = async (req, res, user)=>{
 	try{
 		const storyDeets = await Stories.findById(req.params.id)
 		const loginUsername = req.user.username
-		
+
 		if(storyDeets.user == loginUsername){
 			storyDeets.story = req.body.story
 			storyDeets.save((err, result)=>{
@@ -89,10 +89,15 @@ exports.updateStory = async (req, res, user)=>{
 			})
 		}
 	}catch(error){
-		console.log(error)
-		res.status(404).json({
-			sucess: false,
-			message: 'Story not found'
+		if(error.name == 'TypeError'){
+			res.status(401).json({
+				success: false,
+				message: 'Login to update your stories'
+			})
+		}
+		res.status(500).json({
+			success: false,
+			message: 'Server error'
 		})
 	}
 }
@@ -107,13 +112,13 @@ exports.deleteStory = async (req, res, user)=>{
 			const delStory = await Stories.findByIdAndRemove(req.params.id,(err, doc)=>{
 				if(err){
 					return res.status(404).json({
-					sucess: false,
+					success: false,
 					message: 'Story not found hence not deleted'
 				})
 				}
 				else{
 					return res.status(200).json({
-					sucess: true,
+					success: true,
 					message: 'Story deleted successfully'
 				})
 				}
@@ -127,7 +132,7 @@ exports.deleteStory = async (req, res, user)=>{
 
 	}catch(error){
 		return res.status(500).json({
-			sucess: false,
+			success: false,
 			message: 'Server error'
 		})
 	}
