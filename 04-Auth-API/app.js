@@ -32,6 +32,11 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
+app.post('*', (req, res, next)=>{
+  res.locals.user = req.user || null
+  console.log(res.locals.user)
+  next()
+})
 
 //Routes
 app.use('/api/v1/stories', require('./routes/stories'))

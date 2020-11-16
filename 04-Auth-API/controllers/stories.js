@@ -22,7 +22,7 @@ exports.getStory = async (req, res)=>{
 exports.postStory = async (req, res, user)=>{
 	try{
 		const loginUser = res.locals.user.username
-		console.log(loginUser,'xxxxxxxxxxxxxxxxxx')
+	
 	
 		const newStory = await new Stories()
 
@@ -66,20 +66,29 @@ exports.storyDetails = async (req, res)=>{
 
 }
 
-exports.updateStory = async (req, res)=>{
+exports.updateStory = async (req, res, user)=>{
 	try{
 		const storyDeets = await Stories.findById(req.params.id)
-		storyDeets.story = req.body.story
-		storyDeets.save((err, result)=>{
-			if(err){
-				res.status(404).json(err)
-			}
-			res.status(200).json({
-				sucess: true,
-				data: storyDeets
+		const loginUsername = res.locals.user.username
+		if(storyDeets.user == loginUsername){
+			storyDeets.story = req.body.story
+			storyDeets.save((err, result)=>{
+				if(err){
+					res.status(404).json(err)
+				}
+				res.status(200).json({
+					sucess: true,
+					data: storyDeets
+				})
 			})
-		})
+		}else{
+			res.status(401).json({
+				success: false,
+				message: "You're unauthorized to make changes to this story"
+			})
+		}
 	}catch(error){
+		console.log(error)
 		res.status(404).json({
 			sucess: false,
 			message: 'Story not found'
@@ -88,7 +97,7 @@ exports.updateStory = async (req, res)=>{
 }
 
 
-exports.deleteStory = async (req, res)=>{
+exports.deleteStory = async (req, res, user)=>{
 	try{
 		const delStory = await Stories.findByIdAndRemove(req.params.id,(err, doc)=>{
 			if(err){
