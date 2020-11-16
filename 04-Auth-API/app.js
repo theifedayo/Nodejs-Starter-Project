@@ -34,7 +34,6 @@ app.use(passport.session())
 
 app.post('*', (req, res, next)=>{
   res.locals.user = req.user || null
-  console.log(res.locals.user)
   next()
 })
 
@@ -43,6 +42,12 @@ app.use('/api/v1/stories', require('./routes/stories'))
 app.use('/api/v1', require('./routes/users'))
 
 app.post('*', (req, res, next)=>{
+  res.locals.user = req.user || null
+  console.log(res.locals.user,'----------------')
+  next()
+})
+
+app.put('*', (req, res, next)=>{
   res.locals.user = req.user || null
   console.log(res.locals.user,'----------------')
   next()

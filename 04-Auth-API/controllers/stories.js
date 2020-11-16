@@ -69,7 +69,8 @@ exports.storyDetails = async (req, res)=>{
 exports.updateStory = async (req, res, user)=>{
 	try{
 		const storyDeets = await Stories.findById(req.params.id)
-		const loginUsername = res.locals.user.username
+		const loginUsername = req.user.username
+		console.log(req.user,'bbbbbbbbbbb')
 		if(storyDeets.user == loginUsername){
 			storyDeets.story = req.body.story
 			storyDeets.save((err, result)=>{
@@ -99,20 +100,30 @@ exports.updateStory = async (req, res, user)=>{
 
 exports.deleteStory = async (req, res, user)=>{
 	try{
-		const delStory = await Stories.findByIdAndRemove(req.params.id,(err, doc)=>{
-			if(err){
-				return res.status(404).json({
-				sucess: false,
-				message: 'Story not found hence not deleted'
+		const foundStory = await Stories.findById(req.params.id)
+		const myUsername = req.user.username
+
+		if(foundStory.user == myUsername){
+			const delStory = await Stories.findByIdAndRemove(req.params.id,(err, doc)=>{
+				if(err){
+					return res.status(404).json({
+					sucess: false,
+					message: 'Story not found hence not deleted'
+				})
+				}
+				else{
+					return res.status(200).json({
+					sucess: true,
+					message: 'Story deleted successfully'
+				})
+				}
 			})
-			}
-			else{
-				return res.status(200).json({
-				sucess: true,
-				message: 'Story deleted successfully'
+		}else{
+			res.status(401).json({
+				success: false,
+				message: "You're unauthorized to delete to this story"
 			})
-			}
-		})
+		}
 
 	}catch(error){
 		return res.status(500).json({
