@@ -70,7 +70,7 @@ exports.updateStory = async (req, res, user)=>{
 	try{
 		const storyDeets = await Stories.findById(req.params.id)
 		const loginUsername = req.user.username
-		console.log(req.user,'bbbbbbbbbbb')
+		
 		if(storyDeets.user == loginUsername){
 			storyDeets.story = req.body.story
 			storyDeets.save((err, result)=>{

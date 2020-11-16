@@ -37,7 +37,7 @@ GET [Stories Route](http://localhost:5000/api/v1/stories)
 POST & PUT [Route](http://localhost:3000/api/v1/stories) - Token required
 
 	{
-		"name": story
+		"story": <story>
 	}
 
 DELETE [Route](http://localhost:3000/api/v1/stories/<id>) - Token required
