@@ -1,0 +1,22 @@
+{
+  "name": "05-Chat-App",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "engines": {
+    "node": "12.18.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "author": "Ifedayo Adesiyan",
+  "license": "ISC"
+}
