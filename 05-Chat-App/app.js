@@ -16,6 +16,15 @@ io.on('connection', (socket)=>{
 	socket.on('disconnect', ()=>{
 		console.log('User disconnected from server')
 	})
+
+	socket.on('createMessage', (message)=>{
+		console.log('createMessage', message)
+	})
+
+	socket.emit('newMessage', {
+		from: "server",
+		text: "Hey client, how you holding up"
+	})
 })
 
 
