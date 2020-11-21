@@ -11,7 +11,7 @@ const publicPath = path.join(__dirname, 'public')
 app.use(express.static(publicPath))
 
 io.on('connection', (socket)=>{
-	console.log('A new user connected!')
+	// console.log('A new user connected!')
 
 	socket.emit('newMessage', {
 		from: 'Admin',
@@ -26,11 +26,11 @@ io.on('connection', (socket)=>{
 	})
 
 	socket.on('disconnect', ()=>{
-		console.log('User disconnected from server')
+		// console.log('User disconnected from server')
 	})
 
 	socket.on('createMessage', (message)=>{
-		console.log('createMessage', message)
+		// console.log('createMessage', message)
 
 		io.emit('newMessage', {
 			from: message.from,
