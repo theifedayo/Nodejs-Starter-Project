@@ -1,22 +1,30 @@
 {
-  "name": "05-Chat-App",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "05-chat-app",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
-  "engines": {
-    "node": "12.18.0"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^3.0.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  },
-  "author": "Ifedayo Adesiyan",
-  "license": "ISC"
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "^4.16.4",
+    "express-handlebars": "^5.1.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.1",
+    "hbs": "~4.0.4",
+    "http-errors": "~1.6.3",
+    "mongoose": "^5.10.0",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "dotenv": "^8.2.0"
+  }
 }

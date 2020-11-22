@@ -1,53 +1,41 @@
-const express = require('express')
-const http = require('http')
-const socketIO = require('socket.io')
-const path = require('path')
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-const app = express()
-const server = http.createServer(app)
-let io = socketIO(server)
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
-const publicPath = path.join(__dirname, 'public')
-app.use(express.static(publicPath))
+var app = express();
 
-io.on('connection', (socket)=>{
-	// console.log('A new user connected!')
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
-	socket.emit('newMessage', {
-		from: 'Admin',
-		text: 'Welcome to x-chat-app',
-		createdAt: new Date().getTime()
-	})
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-	socket.broadcast.emit('newMessage', {
-		from: 'Admin',
-		text: 'New user joined',
-		createdAt: new Date().getTime()
-	})
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-	socket.on('disconnect', ()=>{
-		// console.log('User disconnected from server')
-	})
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-	socket.on('createMessage', (message)=>{
-		// console.log('createMessage', message)
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-		io.emit('newMessage', {
-			from: message.from,
-			text: message.text,
-			createdAt: new Date().getTime()
-		})
-	})
-})
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
-
-
-
-
-
-
-const port = process.env.PORT || 3000
-
-server.listen(port, ()=>{
-	console.log(`Server running on port ${port}`)
-})
+module.exports = app;
