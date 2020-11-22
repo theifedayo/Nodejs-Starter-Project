@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+ h1{
+ 	padding-bottom: 12px;
+ }
+input{
+
+	border-radius: 7px;
+}
+
+
+p.password-errors {
+  color: red;
+}
