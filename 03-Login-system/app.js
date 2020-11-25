@@ -12,8 +12,7 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const dotenv = require('dotenv')
 
-//connect to db
-connectDB()
+
 
 dotenv.config({path: './config/config.env'})
 
@@ -22,6 +21,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+//connect to db
+connectDB()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
