@@ -42,6 +42,9 @@ app.use(session({
 	resave: true
 }))
 
+
+app.use(flash());
+
 //handle passport
 app.use(passport.initialize())
 app.use(passport.session())

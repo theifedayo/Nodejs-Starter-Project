@@ -18,6 +18,7 @@ router.post('/', function(req, res, next) {
 router.get('/list', (req, res)=>{
 	Employee.find((err, docs)=>{
 		if(!err){
+			console.log(docs)
 			res.render('employee/list',{
 				list: docs
 			})
